@@ -1,0 +1,57 @@
+project:
+  name: "cosmic_insights"
+  description: "Lakehouse de dados espaciais da NASA - Arquitetura Medalhão"
+  version: "1.0.0"
+
+# ============================================
+# UNITY CATALOG STRUCTURE
+# ============================================
+catalog:
+  name: "cosmic_insights"
+  schemas:
+    bronze: "bronze"
+    silver: "silver"
+    gold: "gold"
+
+# ============================================
+# VOLUMES - STORAGE PATHS
+# ============================================
+
+volumes:
+  bronze:
+    meteorites:
+      name: "meteorite-volume"
+      path: "/Volumes/cosmic_insights/bronze/meteorite-volume/"
+      csv_file: "Meteorite_Landings.csv"
+      delta_path: "/Volumes/cosmic_insights/bronze/meteorite-volume/delta"
+    neo_asteroids:
+      name: "neo-volume"
+      path: "/Volumes/cosmic_insights/bronze/neo-volume"
+      delta_path: "/Volumes/cosmic_insights/bronze/neo-volume/delta"
+    fireballs:
+      name: "fireball-volume"
+      path: "/Volumes/cosmic_insights/bronze/fireball-volume"
+      delta_path: "/Volumes/cosmic_insights/bronze/fireball-volume/delta"
+
+# ============================================
+# TABLES - BRONZE LAYER
+# ============================================
+table:
+  bronze:
+    meteorites: 'meteorites'
+    
+      
+# ============================================
+# NOTEBOOKS STRUCTURE
+# ============================================
+notebooks:
+  setup:
+    - "00_setup_environment.py"
+    
+  bronze_layer:
+    path: "01_bronze_layer"
+    notebooks:
+      - "ingest_meteorites.py"
+      - "ingest_neo.py"
+      - "ingest_fireballs.py"
+      - "meteorites_ingestor.py"
